@@ -1,6 +1,6 @@
 package com.alston.springbootmall.rowmapper;
 
-import com.alston.springbootmall.category.ProductCategory;
+import com.alston.springbootmall.constant.ProductCategory;
 import com.alston.springbootmall.model.Product;
 import org.springframework.jdbc.core.RowMapper;
 

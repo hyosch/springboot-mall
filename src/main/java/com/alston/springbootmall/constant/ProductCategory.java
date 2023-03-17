@@ -1,4 +1,4 @@
-package com.alston.springbootmall.category;
+package com.alston.springbootmall.constant;
 
 public enum ProductCategory {
     FOOD,

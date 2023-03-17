@@ -1,8 +1,9 @@
 package com.alston.springbootmall.model;
 
-import com.alston.springbootmall.category.ProductCategory;
+import com.alston.springbootmall.constant.ProductCategory;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Product {
 
@@ -13,8 +14,8 @@ public class Product {
     private Integer price;
     private Integer stock;
     private String description;
-    private Timestamp createdDate;
-    private Timestamp lastModifiedDate;
+    private Date createdDate;
+    private Date lastModifiedDate;
 
 
     @Override
@@ -88,7 +89,7 @@ public class Product {
         this.description = description;
     }
 
-    public Timestamp getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
@@ -96,7 +97,7 @@ public class Product {
         this.createdDate = createdDate;
     }
 
-    public Timestamp getLastModifiedDate() {
+    public Date getLastModifiedDate() {
         return lastModifiedDate;
     }
 
