@@ -73,12 +73,12 @@ public class Product {
         this.price = price;
     }
 
-    public Integer getStick() {
+    public Integer getStock() {
         return stock;
     }
 
-    public void setStick(Integer stick) {
-        this.stock = stick;
+    public void setStock(Integer stock) {
+        this.stock = stock;
     }
 
     public String getDescription() {
