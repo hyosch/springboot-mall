@@ -1,6 +1,7 @@
 package com.alston.springbootmall.controller;
 
 import com.alston.springbootmall.constant.ProductCategory;
+import com.alston.springbootmall.dto.ProductQueryParams;
 import com.alston.springbootmall.dto.ProductRequest;
 import com.alston.springbootmall.model.Product;
 import com.alston.springbootmall.service.ProductService;
@@ -23,7 +24,11 @@ public class ProductController {
             @RequestParam(required = false) ProductCategory category,
             @RequestParam(required = false) String search
     ) {
-        List<Product> plist = productService.getProducts(category, search);
+        ProductQueryParams queryParams = new ProductQueryParams();
+        queryParams.setCategory(category);
+        queryParams.setSearch(search);
+
+        List<Product> plist = productService.getProducts(queryParams);
 
         return ResponseEntity.status(HttpStatus.OK).body(plist);
     }
