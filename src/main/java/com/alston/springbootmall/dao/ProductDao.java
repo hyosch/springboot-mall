@@ -3,7 +3,11 @@ package com.alston.springbootmall.dao;
 import com.alston.springbootmall.dto.ProductRequest;
 import com.alston.springbootmall.model.Product;
 
+import java.util.List;
+
 public interface ProductDao {
+
+    List<Product> getProducts();
 
     Product getProductById(Integer productId);
 
@@ -12,4 +16,5 @@ public interface ProductDao {
     void updateProduct(Integer productId, ProductRequest productRequest);
 
     void deleteProduct(Integer productId);
+
 }

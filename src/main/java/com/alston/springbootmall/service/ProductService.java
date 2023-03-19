@@ -3,7 +3,11 @@ package com.alston.springbootmall.service;
 import com.alston.springbootmall.dto.ProductRequest;
 import com.alston.springbootmall.model.Product;
 
+import java.util.List;
+
 public interface ProductService {
+
+    List<Product> getProducts();
 
     Product getProductById(Integer productId);
 
@@ -12,4 +16,5 @@ public interface ProductService {
     void updateProduct(Integer productId, ProductRequest productRequest);
 
     void deleteProduct(Integer productId);
+
 }
