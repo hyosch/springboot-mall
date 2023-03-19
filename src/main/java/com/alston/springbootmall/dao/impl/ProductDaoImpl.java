@@ -1,6 +1,5 @@
 package com.alston.springbootmall.dao.impl;
 
-import com.alston.springbootmall.constant.ProductCategory;
 import com.alston.springbootmall.dao.ProductDao;
 import com.alston.springbootmall.dto.ProductQueryParams;
 import com.alston.springbootmall.dto.ProductRequest;
@@ -23,6 +22,27 @@ public class ProductDaoImpl implements ProductDao {
 
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+
+    @Override
+    public Integer countProducts(ProductQueryParams queryParams) {
+        String sql = "SELECT COUNT(*) FROM product WHERE 1=1";
+
+        Map<String, Object> map = new HashMap<>();
+
+        if(queryParams.getCategory() != null) {
+            sql = sql + " AND category= :category";
+            map.put("category", queryParams.getCategory().name());
+        }
+
+        if(queryParams.getSearch() != null) {
+            sql = sql + " AND product_name LIKE :search";
+            map.put("search", "%"+ queryParams.getSearch() +"%");
+        }
+
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+
+        return total;
+    }
 
     @Override
     public List<Product> getProducts(ProductQueryParams queryParams) {

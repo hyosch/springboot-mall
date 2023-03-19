@@ -1,6 +1,5 @@
 package com.alston.springbootmall.service.impl;
 
-import com.alston.springbootmall.constant.ProductCategory;
 import com.alston.springbootmall.dao.ProductDao;
 import com.alston.springbootmall.dto.ProductQueryParams;
 import com.alston.springbootmall.dto.ProductRequest;
@@ -16,6 +15,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductDao productDao;
+
+    @Override
+    public Integer countProducts(ProductQueryParams queryParams) {
+        return productDao.countProducts(queryParams);
+    }
 
     @Override
     public List<Product> getProducts(ProductQueryParams queryParams) {

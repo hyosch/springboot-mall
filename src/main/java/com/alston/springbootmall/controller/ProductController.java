@@ -5,10 +5,10 @@ import com.alston.springbootmall.dto.ProductQueryParams;
 import com.alston.springbootmall.dto.ProductRequest;
 import com.alston.springbootmall.model.Product;
 import com.alston.springbootmall.service.ProductService;
+import com.alston.springbootmall.util.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,7 +20,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts(
+    public ResponseEntity<Page<Product>> getProducts(
             // 查詢條件 Filtering
             @RequestParam(required = false) ProductCategory category,
             @RequestParam(required = false) String search,
@@ -43,7 +43,15 @@ public class ProductController {
 
         List<Product> plist = productService.getProducts(queryParams);
 
-        return ResponseEntity.status(HttpStatus.OK).body(plist);
+        Integer total = productService.countProducts(queryParams);
+
+        Page<Product> page = new Page<>();
+        page.setLimit(limit);
+        page.setOffset(offset);
+        page.setTotal(total);
+        page.setResult(plist);
+
+        return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
 
