@@ -27,13 +27,19 @@ public class ProductController {
 
             // 排序 Sorting
             @RequestParam(defaultValue = "created_date") String orderBy,
-            @RequestParam(defaultValue = "DESC") String sort
+            @RequestParam(defaultValue = "DESC") String sort,
+
+            // 分頁 Paging
+            @RequestParam(defaultValue = "5") Integer limit,
+            @RequestParam(defaultValue = "0") Integer offset
     ) {
         ProductQueryParams queryParams = new ProductQueryParams();
         queryParams.setCategory(category);
         queryParams.setSearch(search);
         queryParams.setOrderBy(orderBy);
         queryParams.setSort(sort);
+        queryParams.setLimit(limit);
+        queryParams.setOffset(offset);
 
         List<Product> plist = productService.getProducts(queryParams);
 
