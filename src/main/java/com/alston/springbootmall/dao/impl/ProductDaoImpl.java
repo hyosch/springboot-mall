@@ -12,10 +12,7 @@ import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class ProductDaoImpl implements ProductDao {
@@ -29,15 +26,7 @@ public class ProductDaoImpl implements ProductDao {
 
         Map<String, Object> map = new HashMap<>();
 
-        if(queryParams.getCategory() != null) {
-            sql = sql + " AND category= :category";
-            map.put("category", queryParams.getCategory().name());
-        }
-
-        if(queryParams.getSearch() != null) {
-            sql = sql + " AND product_name LIKE :search";
-            map.put("search", "%"+ queryParams.getSearch() +"%");
-        }
+        sql = addFilteringSql(sql, map, queryParams);
 
         Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
 
@@ -51,19 +40,11 @@ public class ProductDaoImpl implements ProductDao {
                      "FROM product WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
-
-        if(queryParams.getCategory() != null) {
-            sql = sql + " AND category= :category";
-            map.put("category", queryParams.getCategory().name());
-        }
-
-        if(queryParams.getSearch() != null) {
-            sql = sql + " AND product_name LIKE :search";
-            map.put("search", "%"+ queryParams.getSearch() +"%");
-        }
-
+        // 過濾
+        sql = addFilteringSql(sql, map, queryParams);
+        // 排序
         sql = sql + " ORDER BY " + queryParams.getOrderBy() +" "+ queryParams.getSort();
-
+        // 分頁
         sql = sql + " LIMIT :limit OFFSET :offset";
         map.put("limit", queryParams.getLimit());
         map.put("offset", queryParams.getOffset());
@@ -114,7 +95,7 @@ public class ProductDaoImpl implements ProductDao {
 
         namedParameterJdbcTemplate.update(sql, new MapSqlParameterSource(map), keyHolder);
 
-        int productId = keyHolder.getKey().intValue();
+        int productId = Objects.requireNonNull(keyHolder.getKey()).intValue();
 
         return productId;
     }
@@ -147,5 +128,18 @@ public class ProductDaoImpl implements ProductDao {
         map.put("productId", productId);
 
         namedParameterJdbcTemplate.update(sql, map);
+    }
+
+    private String addFilteringSql(String sql, Map<String, Object> map, ProductQueryParams queryParams) {
+        if(queryParams.getCategory() != null) {
+            sql = sql + " AND category= :category";
+            map.put("category", queryParams.getCategory().name());
+        }
+
+        if(queryParams.getSearch() != null) {
+            sql = sql + " AND product_name LIKE :search";
+            map.put("search", "%"+ queryParams.getSearch() +"%");
+        }
+        return sql;
     }
 }
