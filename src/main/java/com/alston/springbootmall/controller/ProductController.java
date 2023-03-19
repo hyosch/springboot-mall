@@ -1,5 +1,6 @@
 package com.alston.springbootmall.controller;
 
+import com.alston.springbootmall.constant.ProductCategory;
 import com.alston.springbootmall.dto.ProductRequest;
 import com.alston.springbootmall.model.Product;
 import com.alston.springbootmall.service.ProductService;
@@ -18,8 +19,11 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts() {
-        List<Product> plist = productService.getProducts();
+    public ResponseEntity<List<Product>> getProducts(
+            @RequestParam(required = false) ProductCategory category,
+            @RequestParam(required = false) String search
+    ) {
+        List<Product> plist = productService.getProducts(category, search);
 
         return ResponseEntity.status(HttpStatus.OK).body(plist);
     }
