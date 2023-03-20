@@ -22,7 +22,6 @@ public class ProductRequest {
     @NotNull
     private Integer stock;
 
-    @NotNull
     private String description;
 
     public String getProductName() {

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -68,7 +69,7 @@ public class ProductController {
     }
 
     @PostMapping("/products")
-    public ResponseEntity<Product> createProduct(@RequestBody ProductRequest productRequest) {
+    public ResponseEntity<Product> createProduct(@RequestBody @Valid ProductRequest productRequest) {
         Integer productId = productService.createProduct(productRequest);
 
         Product product = productService.getProductById(productId);
@@ -78,11 +79,11 @@ public class ProductController {
 
     @PutMapping ("/products/{productId}")
     public ResponseEntity<Product> updateProduct (@PathVariable Integer productId,
-                                                  @RequestBody ProductRequest productRequest) {
+                                                  @RequestBody @Valid ProductRequest productRequest) {
         Product product = productService.getProductById(productId);
 
         if (product == null) {
-            ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
         productService.updateProduct(productId, productRequest);
