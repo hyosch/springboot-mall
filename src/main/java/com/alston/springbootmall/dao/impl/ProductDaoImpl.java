@@ -40,11 +40,12 @@ public class ProductDaoImpl implements ProductDao {
                      "FROM product WHERE 1=1";
 
         Map<String, Object> map = new HashMap<>();
-        // 過濾
+        // 篩選
         sql = addFilteringSql(sql, map, queryParams);
         // 排序
         sql = sql + " ORDER BY " + queryParams.getOrderBy() +" "+ queryParams.getSort();
         // 分頁
+
         sql = sql + " LIMIT :limit OFFSET :offset";
         map.put("limit", queryParams.getLimit());
         map.put("offset", queryParams.getOffset());

@@ -5,6 +5,7 @@ import com.alston.springbootmall.dao.ProductDao;
 import com.alston.springbootmall.dao.UserDao;
 import com.alston.springbootmall.dto.BuyItem;
 import com.alston.springbootmall.dto.CreateOrderRequest;
+import com.alston.springbootmall.dto.OrderQueryParams;
 import com.alston.springbootmall.model.Order;
 import com.alston.springbootmall.model.OrderItem;
 import com.alston.springbootmall.model.Product;
@@ -37,10 +38,27 @@ public class OrderServiceImpl implements OrderService {
     private final static Logger log = LoggerFactory.getLogger(OrderServiceImpl.class);
 
     @Override
+    public Integer countOrders(OrderQueryParams orderQueryParams) {
+        return orderDao.countOrders(orderQueryParams);
+    }
+
+    @Override
+    public List<Order> getOrders(OrderQueryParams orderQueryParams) {
+        List<Order> orderList = orderDao.getOrders(orderQueryParams);
+
+        for (Order order : orderList) {
+            List<OrderItem> orderItemList = orderDao.getOrderItemsByOrderId(order.getOrderId());
+
+            order.setOrderItemList(orderItemList);
+        }
+        return orderList;
+    }
+
+    @Override
     public Order getOrderById(Integer orderId) {
         Order order = orderDao.getOrderById(orderId);
 
-        List<OrderItem> orderItemList = orderDao.getOrderItemById(orderId);
+        List<OrderItem> orderItemList = orderDao.getOrderItemsByOrderId(orderId);
 
         order.setOrderItemList(orderItemList);
 
