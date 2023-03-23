@@ -79,6 +79,7 @@ public class OrderServiceImpl implements OrderService {
         int totalAmount = 0;
         List<OrderItem> orderItemList = new ArrayList<>();
 
+        //  遍歷購物清單
         for (BuyItem buyItem : createOrderRequest.getBuyItemList()) {
             Product product = productDao.getProductById(buyItem.getProductId());
 
@@ -99,7 +100,7 @@ public class OrderServiceImpl implements OrderService {
             int amount = buyItem.getQuantity() * product.getPrice();
             totalAmount = totalAmount + amount;
 
-        //  轉換 BuyItem 成 OrderItem
+        //  BuyItem 轉 OrderItem
             OrderItem orderItem = new OrderItem();
             orderItem.setProductId(buyItem.getProductId());
             orderItem.setQuantity(buyItem.getQuantity());
@@ -107,7 +108,6 @@ public class OrderServiceImpl implements OrderService {
 
             orderItemList.add(orderItem);
         }
-
         Integer orderId = orderDao.createOrder(userId, totalAmount);
 
         orderDao.createOrderItems(orderId, orderItemList);

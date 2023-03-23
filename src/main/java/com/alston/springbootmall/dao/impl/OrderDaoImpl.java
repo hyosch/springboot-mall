@@ -126,7 +126,7 @@ public class OrderDaoImpl implements OrderDao {
         namedParameterJdbcTemplate.batchUpdate(sql, parameterSource);
     }
 
-    private String addFilteringSql(String sql, Map<String, Object> map, OrderQueryParams orderQueryParams) {
+    private String addFilteringSql(String sql, Map<String,Object> map, OrderQueryParams orderQueryParams) {
         if (orderQueryParams.getUserId() != null) {
             sql = sql + " AND user_id= :userId";
             map.put("userId", orderQueryParams.getUserId());

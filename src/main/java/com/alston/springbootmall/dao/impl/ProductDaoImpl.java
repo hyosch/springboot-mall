@@ -45,7 +45,6 @@ public class ProductDaoImpl implements ProductDao {
         // 排序
         sql = sql + " ORDER BY " + queryParams.getOrderBy() +" "+ queryParams.getSort();
         // 分頁
-
         sql = sql + " LIMIT :limit OFFSET :offset";
         map.put("limit", queryParams.getLimit());
         map.put("offset", queryParams.getOffset());
@@ -109,7 +108,6 @@ public class ProductDaoImpl implements ProductDao {
 
         Map<String, Object> map = new HashMap<>();
         map.put("productId", productId);
-
         map.put("productName", productRequest.getProductName());
         map.put("category", productRequest.getCategory().toString());
         map.put("imageUrl", productRequest.getImageUrl());
