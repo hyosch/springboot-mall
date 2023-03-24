@@ -3,6 +3,7 @@ package com.alston.springbootmall.controller;
 import com.alston.springbootmall.constant.ProductCategory;
 import com.alston.springbootmall.dto.ProductQueryParams;
 import com.alston.springbootmall.dto.ProductRequest;
+import com.alston.springbootmall.exception.ApiRequestException;
 import com.alston.springbootmall.model.Product;
 import com.alston.springbootmall.service.ProductService;
 import com.alston.springbootmall.util.Page;
@@ -52,9 +53,9 @@ public class ProductController {
         page.setTotal(total);
         page.setResult(plist);
 
+        //return new ResponseEntity<Page<Product>>(page, HttpStatus.OK);
         return ResponseEntity.status(HttpStatus.OK).body(page);
     }
-
 
     @GetMapping("/products/{productId}")
     public ResponseEntity<Product> getProduct (@PathVariable Integer productId){
@@ -63,7 +64,8 @@ public class ProductController {
         if(product != null) {
             return ResponseEntity.status(HttpStatus.OK).body(product);
         } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new ApiRequestException("OOOOOOOps Not Found");
+            //return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
     }
