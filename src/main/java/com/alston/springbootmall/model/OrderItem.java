@@ -1,14 +1,30 @@
 package com.alston.springbootmall.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
+@ApiModel(value = "訂單明細對象", description = "訂單明細管理")
 public class OrderItem {
 
+    @ApiModelProperty(value = "明細編號")
     private int orderItemId;
+
+    @ApiModelProperty(value = "訂單編號")
     private int orderId;
+
+    @ApiModelProperty(value = "商品編號")
     private int productId;
+
+    @ApiModelProperty(value = "數量")
     private int quantity;
+
+    @ApiModelProperty(value = "小計")
     private int amount;
 
+    @ApiModelProperty(value = "商品名稱")
     private String productName;
+
+    @ApiModelProperty(value = "圖片")
     private String imageUrl;
 
     public int getOrderItemId() {

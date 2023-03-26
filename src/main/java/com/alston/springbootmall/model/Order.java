@@ -1,14 +1,27 @@
 package com.alston.springbootmall.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 import java.util.List;
 
+@ApiModel(value = "訂單對象", description = "訂單管理")
 public class Order {
 
+    @ApiModelProperty(value = "訂單編號")
     private int orderId;
+
+    @ApiModelProperty(value = "使用者編號")
     private int userId;
+
+    @ApiModelProperty(value = "總金額")
     private int totalAmount;
+
+    @ApiModelProperty(value = "創建日期")
     private Date createdDate;
+
+    @ApiModelProperty(value = "最後修改日期")
     private Date lastModifiedDate;
 
     private List<OrderItem> orderItemList;

@@ -5,6 +5,8 @@ import com.alston.springbootmall.dto.OrderQueryParams;
 import com.alston.springbootmall.model.Order;
 import com.alston.springbootmall.service.OrderService;
 import com.alston.springbootmall.util.Page;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,11 +20,13 @@ import java.util.List;
 
 @Validated
 @RestController
+@Api(tags = "訂單管理")
 public class OrderController {
 
     @Autowired
     private OrderService orderService;
 
+    @ApiOperation("查詢指定使用者的訂單")
     @GetMapping("/users/{userId}/orders")
     public ResponseEntity<Page<Order>> getOrders(
             @PathVariable Integer userId,
@@ -47,6 +51,7 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(page);
     }
 
+    @ApiOperation("新增指定使用者的訂單")
     @PostMapping("/users/{userId}/orders")
     public ResponseEntity<Order> createOrder(@PathVariable Integer userId,
                                              @RequestBody @Valid CreateOrderRequest createOrderRequest) {

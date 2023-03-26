@@ -1,20 +1,40 @@
 package com.alston.springbootmall.model;
 
 import com.alston.springbootmall.constant.ProductCategory;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.sql.Timestamp;
 import java.util.Date;
 
+@ApiModel(value = "商品對象", description = "商品管理")
 public class Product {
 
+    @ApiModelProperty(value = "編號")
     private Integer productId;
+
+    @ApiModelProperty(value = "名稱")
     private String productName;
+
+    @ApiModelProperty(value = "類別")
     private ProductCategory category;
+
+    @ApiModelProperty(value = "圖片來源")
     private String imageUrl;
+
+    @ApiModelProperty(value = "價格")
     private Integer price;
+
+    @ApiModelProperty(value = "庫存")
     private Integer stock;
+
+    @ApiModelProperty(value = "描述")
     private String description;
+
+    @ApiModelProperty(value = "創建日期")
     private Date createdDate;
+
+    @ApiModelProperty(value = "最後修改日期")
     private Date lastModifiedDate;
 
 
